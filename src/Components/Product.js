@@ -3,11 +3,11 @@ import { Card, Button, Input } from 'reactstrap';
 
 const Product = ({ id, name, description, price, image, addToCart }) => {
   const [quantity, setQuantity] = useState(1);
+  const [isInCart, setIsInCart] = useState(false);
 
   const handleQuantityChange = e => {
     setQuantity(e.target.value);
   };
-  const [isInCart, setIsInCart] = useState(false);
 
   const handleAddToCart = () => {
     if (!isInCart) {
@@ -24,10 +24,10 @@ const Product = ({ id, name, description, price, image, addToCart }) => {
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
         <p className="card-text">{description}</p>
-        <p className="card-text">${price}</p>
+        <p className="card-text text-center">${price}</p> {/* Centered price text */}
       </div>
       <div className="card-footer">
-      <Input type="number" value={quantity} onChange={handleQuantityChange} min="1" className="mr-2" style={{ width: '70px', marginRight: '10px' }} />
+        <Input type="number" value={quantity} onChange={handleQuantityChange} min="1" className="mr-2" style={{ width: '70px', marginRight: '10px' }} />
         <button className="btn btn-primary w-100" onClick={handleAddToCart}>Add to Cart</button>
       </div>
     </div>
