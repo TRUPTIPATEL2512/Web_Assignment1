@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const AccountPage = () => {
   const [formData, setFormData] = useState({ name: '', email: '', address: '' });
-  const [showMessage, setShowMessage] = useState(false); // State to control message visibility
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -10,9 +10,11 @@ const AccountPage = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(formData);
-    // Add logic to save form data (e.g., send to server)
-    setShowMessage(true); // Set showMessage to true when form is submitted
+    setShowPopup(true);
+  };
+
+  const handleEdit = () => {
+    setShowPopup(false);
   };
 
   return (
@@ -33,7 +35,19 @@ const AccountPage = () => {
         </div>
         <button type="submit" className="btn btn-primary">Save</button>
       </form>
-      {showMessage && <p className="mt-3">Form data saved successfully!</p>} {/* Show message if showMessage is true */}
+      
+      {/* Popup */}
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <h3>User Information</h3>
+            <p><strong>Name:</strong> {formData.name}</p>
+            <p><strong>Email:</strong> {formData.email}</p>
+            <p><strong>Address:</strong> {formData.address}</p>
+            <button className="btn btn-primary" onClick={handleEdit}>Edit</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
+import {Button, Input } from 'reactstrap';
 
-const CartPage = ({ cartItems, removeFromCart }) => {
+const CartPage = ({ cartItems, removeFromCart,updateQuantity }) => {
   const [showMessage, setShowMessage] = useState(false);
 
   const handleCheckout = () => {
-    // Perform any necessary checkout logic here (e.g., sending data to a server)
     setShowMessage(true);
   };
 
   return (
     <div className="cart-page container">
-      <h2 className="my-4">Shopping Cart</h2>
+      <h2 className="my-4">NovelNest</h2>
       <ul className="list-group cart-items">
+
         {cartItems.map(item => (
           <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+            <img src={item.image} alt={item.name} style={{ width: '100px', height: '100px', marginRight: '20px' }} />
             <span>{item.name} - ${item.price}</span>
+            <Input type="number" value={item.quantity} onChange={e => updateQuantity(item.id, parseInt(e.target.value))} min="1" className="mr-2" style={{ width: '70px' }} />
             <button className="btn btn-danger" onClick={() => removeFromCart(item.id)}>Remove</button>
           </li>
         ))}
